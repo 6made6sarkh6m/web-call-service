@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="lib/bootstrap/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="proctor.css">
+    <title>Просмотр видео и экрана участника</title>
+    <script type="text/javascript" src="lib/flashphoner.js"></script>
+    <script type="text/javascript" src="lib/jquery/jquery-1.12.0.js"></script>
+    <script type="text/javascript" src="lib/js/utils.js"></script>
+
+    <script type="text/javascript" src="proctor.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="lib/bootstrap/js/bootstrap.js"></script>
+</head>
+<body onload="init_page()">
+<div class="container">
+    <div class="row">
+
+        <h2 id="notifyFlash" class="text-danger"></h2>
+
+        <div class="col-sm-9 text-center">
+
+            <h2 class="text-center">Просмотр видео и экрана участника</h2>
+
+            <div class="col-sm-6">
+                <div class="text-center text-muted">Camera</div>
+                <div class="fp-remoteVideo">
+                    <div id="player1" class="display"></div>
+                </div>
+
+                <div id="form1" class="input-group col-sm-10" style="margin: 10px auto 0 auto;">
+                    <input class="form-control" type="text" id="streamName1" value="strcamera">
+                    <div class="input-group-btn">
+                        <button id="playBtn1" type="button" class="btn btn-default">Play</button>
+                        <button id="snapshotBtn1" type="button" class="btn btn-default">Snapshot</button>
+                    </div>
+                </div>
+                <div class="text-center" style="margin-top: 20px">
+                    <div id="status1"></div>
+                </div>
+				<div id="myModal1" class="modal fade">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+								<h4 class="modal-title">Snapshot камеры</h4>
+							</div>
+							<div class="modal-body">
+								<img id="dynImg1" class="fp-snapshot"/>
+							</div>
+							<div class="modal-footer">
+								<a class="btn btn-default" id ="link1" download>Скачать Snapshot камеры</a>
+								<button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+							</div>
+						</div>
+					</div>
+				</div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="text-center text-muted">Screen</div>
+                <div class="fp-remoteVideo">
+                    <div id="player2" class="display"></div>
+                </div>
+                <div id="form2" class="input-group col-sm-10" style="margin: 10px auto 0 auto;">
+                    <input class="form-control" type="text" id="streamName2" value="strScreen">
+                    <div class="input-group-btn">
+                        <button id="playBtn2" type="button" class="btn btn-default">Play</button>
+                        <button id="snapshotBtn2" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal2">Snapshot</button>
+                    </div>
+                </div>
+                <div class="text-center" style="margin-top: 20px">
+                    <div id="status2"></div>
+                </div>
+				<div id="myModal2" class="modal fade">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+								<h4 class="modal-title">Snapshot экрана</h4>
+							</div>
+							<div class="modal-body">
+								<img id="dynImg2" class="fp-snapshot"/>
+								
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+								<a id ="link2" class="btn btn-default" download>Скачать Snapshot экрана</a>
+							</div>
+						</div>
+					</div>
+				</div>
+            </div>
+        </div>
+    </div>
+    <div class="row row-space">
+        <div class="col-sm-5 col-sm-offset-2">
+            <div id="connectionForm" class="input-group">
+                <input class="form-control" id="url" type="text">
+                <div class="input-group-btn">
+                    <button id="connectBtn" type="button" class="btn btn-default">Connect</button>
+                </div>
+            </div>
+            <div class="text-center">
+                <div id="connectStatus"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 70px;">
+        <!--div class="col-sm-4">
+            <a href="https://play.google.com/store/apps/details?id=com.flashphoner.wcsexample.twoplayers"><img src="../../dependencies/img/google_play.jpg" title="Google Play" alt="Google Play"></a>
+        </div-->
+    </div>
+</div>
+</body>
+</html>
