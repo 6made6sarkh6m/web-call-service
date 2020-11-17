@@ -3,7 +3,7 @@ var STREAM_STATUS = Flashphoner.constants.STREAM_STATUS;
 var STREAM_STATUS_INFO = Flashphoner.constants.STREAM_STATUS_INFO;
 var PRELOADER_URL = "lib/media/preloader.mp4";
 var localVideo;
-var localScreen;
+//var localScreen;
 //var remoteVideo;
 
 
@@ -13,7 +13,9 @@ var localScreen;
 function init_page() {
     //init api
     try {
-        Flashphoner.init({flashMediaProviderSwfLocation: 'lib/media-provider.swf'});
+		
+		Flashphoner.init({flashMediaProviderSwfLocation: 'lib/media-provider.swf'});
+		
     } catch (e) {
         $("#notifyFlash").text("Your browser doesn't support Flash or WebRTC technology necessary for work of an example");
         return;
@@ -21,20 +23,24 @@ function init_page() {
 
     //local and remote displays
     localVideo = document.getElementById("localVideo");
-	localScreen = document.getElementById("localScreen");
+//	localScreen = document.getElementById("localScreen");
 //    remoteVideo = document.getElementById("remoteVideo");
 
     //$("#urlServer").val(setURL());
-    $("#urlServer").val("wss://192.168.152.3:8443");
+    $("#urlServer").val("wss://rtc.astanait.edu.kz:8443");
     var streamName = createUUID(4);
 //    $("#publishStream").val(streamName);
-    $("#publishStream").val("strcamera");
+    $("#publishStream").val("streamName").prop("disabled", true);
     $("#publishScreenStream").val("strScreen");
 //    $("#publishScreenStream").val(createUUID(4));
 //    $("#playStream").val(streamName);
     onDisconnected();
     onUnpublished();
-	onUnpublishedScreen();
+    //onUnpublishedScreen();
+    document.getElementById("connectBtn").click();
+    setTimeout(function(){
+        document.getElementById("publishBtn").click();
+    },2000);
 }
 
 function connect() {
@@ -60,7 +66,7 @@ function onConnected(session) {
         session.disconnect();
     }).prop('disabled', false);
     onUnpublished();
-    onUnpublishedScreen();
+//    onUnpublishedScreen();
 }
 
 function onDisconnected() {
@@ -73,7 +79,7 @@ function onDisconnected() {
     }).prop('disabled', false);
     $('#urlServer').prop('disabled', false);
     onUnpublished();
-    onUnpublishedScreen();
+//    onUnpublishedScreen();
 }
 
 function onPublishing(stream) {
@@ -83,7 +89,7 @@ function onPublishing(stream) {
     }).prop('disabled', false);
     $("#publishInfo").text("");
 }
-
+/*
 function onPublishingScreen(stream) {
     $("#publishscreenBtn").text("Stop").off('click').click(function () {
         $(this).prop('disabled', true);
@@ -91,7 +97,7 @@ function onPublishingScreen(stream) {
     }).prop('disabled', false);
     $("#publishScreenInfo").text("");
 }
-
+*/
 function onUnpublished() {
 	$("#publishBtn").text("Publish").off('click').click(publishBtnClick);
     if (Flashphoner.getSessions()[0] && Flashphoner.getSessions()[0].status() == SESSION_STATUS.ESTABLISHED) {
@@ -102,7 +108,7 @@ function onUnpublished() {
 //        $('#publishStream').prop('disabled', true);
     }
 }
-
+/*
 function onUnpublishedScreen() {
 	$("#publishscreenBtn").text("Publish").off('click').click(publishscreenBtnClick);
     if (Flashphoner.getSessions()[0] && Flashphoner.getSessions()[0].status() == SESSION_STATUS.ESTABLISHED) {
@@ -113,7 +119,7 @@ function onUnpublishedScreen() {
 //        $('#publishStream').prop('disabled', true);
     }
 }
-
+*/
 
 function publishBtnClick() {
     if (validateForm("streamerForm")) {
@@ -128,7 +134,7 @@ function publishBtnClick() {
         publishStream();
     }
 }
-
+/*
 function publishscreenBtnClick() {
     if (validateForm("ScreenForm")) {
 //        $('#publishStream').prop('disabled', true);
@@ -142,7 +148,7 @@ function publishscreenBtnClick() {
         publishStreamScreen();
     }
 }
-
+*/
 /*function onPlaying(stream) {
     $("#playBtn").text("Stop").off('click').click(function () {
         $(this).prop('disabled', true);
@@ -192,21 +198,14 @@ function publishStream() {
     if (Browser.isSafariWebRTC()) {
         Flashphoner.playFirstVideo(localVideo, true);
     }
-	var constraints = {
-        video: {
-            width: 320,
-            height: 240,
-            frameRate:30
-        }
-    };
+
     session.createStream({
         name: streamName,
         display: localVideo,
         cacheLocalResources: true,
 		record: true,
         receiveVideo: false,
-        receiveAudio: false,
-		constraints: constraints
+        receiveAudio: false
     }).on(STREAM_STATUS.PUBLISHING, function (stream) {
         setStatus("#publishStatus", STREAM_STATUS.PUBLISHING);
         onPublishing(stream);
@@ -218,7 +217,7 @@ function publishStream() {
         onUnpublished();
     }).publish();
 }
-
+/*
 function publishStreamScreen() {
     var session = Flashphoner.getSessions()[0];
     var streamName = $('#publishScreenStream').val();
@@ -228,8 +227,8 @@ function publishStreamScreen() {
     }
 	var constraints = {
         video: {
-            width: 800,
-            height: 600,
+            width: 320,
+            height: 240,
             frameRate:30
         }
     };
@@ -243,7 +242,6 @@ function publishStreamScreen() {
     session.createStream({
         name: streamName,
         display: localScreen,
-		record: true, 
         constraints: constraints
     }).on(STREAM_STATUS.PUBLISHING, function (stream) {
         setStatus("#publishScreenStatus", STREAM_STATUS.PUBLISHING);
@@ -256,7 +254,7 @@ function publishStreamScreen() {
         onUnpublishedScreen();
     }).publish();
 }
-
+*/
 //show connection, or local, or remote stream status
 function setStatus(selector, status, stream) {
     var statusField = $(selector);
