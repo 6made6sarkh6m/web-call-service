@@ -30,8 +30,8 @@ function init_page() {
     $("#urlServer").val("wss://rtc.astanait.edu.kz:8443");
     var streamName = createUUID(4);
 //    $("#publishStream").val(streamName);
-    $("#publishStream").val("streamName").prop("disabled", true);
-    $("#publishScreenStream").val("strScreen");
+    $("#publishStream").val("Stre").prop("disabled", true);
+    //$("#publishScreenStream").val("streamName");
 //    $("#publishScreenStream").val(createUUID(4));
 //    $("#playStream").val(streamName);
     onDisconnected();
